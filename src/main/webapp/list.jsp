@@ -24,7 +24,7 @@
 		<c:forEach items="${list}" var="bdto">
 			<tr>
 				<td align="center">${bdto.bid} </td>
-				<td>${bdto.btitle} </td>
+				<td><a href="content_view.do?bid=${bdto.bid}">${bdto.btitle}</a> </td>	<!-- parameter값을 넘김 -->
 				<td align="center">${bdto.bname} </td>
 				<td align="center">${bdto.bdate} </td>
 				<td align="center">${bdto.bhit} </td>

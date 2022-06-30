@@ -29,6 +29,7 @@ public class BDao {
 		}
 	}
 	
+	
 	public void write(String bname, String btitle, String bcontent) { //insert, 매개변수 선언, 반환타입X
 		
 		Connection conn = null;				// java.sql
@@ -101,6 +102,9 @@ public class BDao {
 		}
 		finally {
 			try {
+				if (rs!= null) {
+					rs.close();
+				}
 				if (pstmt != null) {
 					pstmt.close();
 				}
@@ -116,4 +120,59 @@ public class BDao {
 		
 		return bdtos;
 	}  // list() 함수 종료
+	
+	
+	public BDto contentView(String boardid) {
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		BDto bdto = null;					// 초기값 선언
+		
+		
+		String sql = "SELECT * FROM mvc_board WHERE bid =?";	// bid 내림차순으로 정렬 
+		
+		try {
+			conn = datasource.getConnection();
+			pstmt = conn.prepareStatement(sql);	
+			
+			pstmt.setString(1, boardid);
+			
+			rs = pstmt.executeQuery(); 	// sql 실행(select문은 executeQuery()로 반환값 발생)
+			
+			while(rs.next()) {
+				int bid = rs.getInt("bid");
+				String bname = rs.getString("bname");
+				String btitle = rs.getString("btitle");
+				String bcontent = rs.getString("bcontent");
+				int bhit = rs.getInt("bhit");
+				Timestamp bdate = rs.getTimestamp("bdate");
+				
+				bdto = new BDto(bid, bname, btitle, bcontent, bhit, bdate);
+			}
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (rs!= null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+				
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return bdto;
+	}
 }

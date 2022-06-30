@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mirim.board.command.BContentViewCommand;
 import com.mirim.board.command.BListCommand;
 import com.mirim.board.command.BWriteCommand;
 import com.mirim.board.dao.BDao;
@@ -85,8 +86,17 @@ public class BFrontController extends HttpServlet {
 			view = "list.jsp";
 //			response.sendRedirect(view); // 기존의 데이터가 셋팅된 request 객체를 사용하지 못함 
 		}
+		else if (command.equals("/content_view.do")) {
+			// 글 리스트 불러오기 명령이 실행
+			
+			BContentViewCommand comm = new BContentViewCommand();
+			comm.viewExcute(request, response);
+			
+			view = "content_view.jsp";
+
+		}
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+		RequestDispatcher dispatcher = request.getRequestDispatcher(view);	// RequestDispatcher는 하나로 계속 돌려씀
 		dispatcher.forward(request, response);
 	
 	}
