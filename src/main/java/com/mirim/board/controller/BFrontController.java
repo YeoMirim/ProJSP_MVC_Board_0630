@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mirim.board.command.BContentViewCommand;
 import com.mirim.board.command.BListCommand;
+import com.mirim.board.command.BModifyCommand;
 import com.mirim.board.command.BWriteCommand;
 import com.mirim.board.dao.BDao;
 
@@ -80,6 +81,8 @@ public class BFrontController extends HttpServlet {
 		else if (command.equals("/list.do")) {
 			// 글 리스트 불러오기 명령이 실행
 			
+			request.setCharacterEncoding("utf-8");//한글 깨짐 방지
+			
 			BListCommand comm = new BListCommand();
 			comm.listExcute(request, response);
 			
@@ -87,12 +90,25 @@ public class BFrontController extends HttpServlet {
 //			response.sendRedirect(view); // 기존의 데이터가 셋팅된 request 객체를 사용하지 못함 
 		}
 		else if (command.equals("/content_view.do")) {
-			// 글 리스트 불러오기 명령이 실행
+			// 글 내용보기 명령이 실행
+			
+			request.setCharacterEncoding("utf-8");//한글 깨짐 방지
 			
 			BContentViewCommand comm = new BContentViewCommand();
 			comm.viewExcute(request, response);
 			
 			view = "content_view.jsp";
+
+		}
+		else if (command.equals("/modify.do")) {
+			// 글 수정하기 명령이 실행
+			
+			request.setCharacterEncoding("utf-8");//한글 깨짐 방지
+			
+			BModifyCommand comm = new BModifyCommand();
+			comm.modifyExcute(request, response);
+			
+			view = "list.do";
 
 		}
 		

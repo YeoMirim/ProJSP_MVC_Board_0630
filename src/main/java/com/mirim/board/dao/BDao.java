@@ -174,5 +174,44 @@ public class BDao {
 		}
 		
 		return bdto;
-	}
+	}	// contentView 함수 종료
+	
+	
+	
+	public void modify(String bname, String btitle, String bcontent, String bid) { //update, 매개변수 선언, 반환타입X
+		
+		Connection conn = null;				// java.sql
+		PreparedStatement pstmt = null;		// java.sql
+		
+		try {
+			String sql = "UPDATE mvc_board SET bname=?, btitle=?, bcontent=? WHERE bid=?"; 
+			// 
+			conn = datasource.getConnection();
+			pstmt = conn.prepareStatement(sql);	
+			
+			pstmt.setString(1, bname);		// pstmt는 자리값이 0이 아닌 1부터 시작, 매개변수값으로  setting
+			pstmt.setString(2, btitle);
+			pstmt.setString(3, bcontent);
+			pstmt.setInt(4, Integer.parseInt(bid));
+			
+			pstmt.executeUpdate(); 	// sql 실행
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+				
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	} // modify() 함수 종료
 }
