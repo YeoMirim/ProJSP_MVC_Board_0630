@@ -4,10 +4,15 @@ package com.mirim.board.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+
+import com.mirim.board.dto.BDto;
 
 public class BDao {
 
@@ -24,7 +29,7 @@ public class BDao {
 		}
 	}
 	
-	public void write(String bname, String btitle, String bcontent) { //insert, 매개변수 선언
+	public void write(String bname, String btitle, String bcontent) { //insert, 매개변수 선언, 반환타입X
 		
 		Connection conn = null;				// java.sql
 		PreparedStatement pstmt = null;		// java.sql
@@ -58,5 +63,57 @@ public class BDao {
 				e.printStackTrace();
 			}
 		}
-	}
+	} // write() 함수 종료
+	
+	
+	public ArrayList<BDto> list() {
+		
+		// sql = "SELECT * FROM mvc_board" => ResultSet 통재로 반환받아야함
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		ArrayList<BDto> bdtos = new ArrayList<BDto>();	// ArrayList() 선언
+		
+		String sql = "SELECT * FROM mvc_board ORDER BY bid DESC";	// bid 내림차순으로 정렬 
+		
+		try {
+			conn = datasource.getConnection();
+			pstmt = conn.prepareStatement(sql);	
+			
+			rs = pstmt.executeQuery(); 	// sql 실행(select문은 executeQuery()로 반환값 발생)
+			
+			while(rs.next()) {
+				int bid = rs.getInt("bid");
+				String bname = rs.getString("bname");
+				String btitle = rs.getString("btitle");
+				String bcontent = rs.getString("bcontent");
+				int bhit = rs.getInt("bhit");
+				Timestamp bdate = rs.getTimestamp("bdate");
+				
+				BDto bdto = new BDto(bid, bname, btitle, bcontent, bhit, bdate);
+				bdtos.add(bdto);	
+			}
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+				
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return bdtos;
+	}  // list() 함수 종료
 }

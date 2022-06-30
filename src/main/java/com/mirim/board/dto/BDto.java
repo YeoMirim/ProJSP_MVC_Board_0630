@@ -1,4 +1,4 @@
-// DTO - DB에서 1개의 레코드값들을 담은 상자 역할을 함, ex: 10건일 경우 10개의 DTO가 움직임
+// DTO - DB에서 1개의 레코드값들을 담은 상자 역할을 함, ex: 10건일 경우 10개의 DTO가 움직임 => ArrayList로 반환
 
 package com.mirim.board.dto;
 import java.sql.Timestamp;

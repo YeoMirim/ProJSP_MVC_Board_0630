@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mirim.board.command.BListCommand;
 import com.mirim.board.command.BWriteCommand;
 import com.mirim.board.dao.BDao;
 
@@ -78,7 +79,11 @@ public class BFrontController extends HttpServlet {
 		else if (command.equals("/list.do")) {
 			// 글 리스트 불러오기 명령이 실행
 			
+			BListCommand comm = new BListCommand();
+			comm.listExcute(request, response);
+			
 			view = "list.jsp";
+//			response.sendRedirect(view); // 기존의 데이터가 셋팅된 request 객체를 사용하지 못함 
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
