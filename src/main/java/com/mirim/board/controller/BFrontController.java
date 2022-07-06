@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mirim.board.command.BCommand;
 import com.mirim.board.command.BContentViewCommand;
 import com.mirim.board.command.BDeleteCommand;
 import com.mirim.board.command.BListCommand;
@@ -56,6 +57,7 @@ public class BFrontController extends HttpServlet {
 		String command = uri.substring(conPath.length());	// 실제 요청 주소 분기 (/write.do)
 		
 		String view = null;
+		BCommand comm = null;		// 빈 comm 생성 => 코드 통일성 위해서 전역으로
 		
 		if (command.equals("/write_view.do")) {
 //			request.setAttribute("id", "tiger");	// request객체에 내용을 실어서 전달
@@ -74,7 +76,7 @@ public class BFrontController extends HttpServlet {
 */
 			request.setCharacterEncoding("utf-8"); // 한글 깨짐 방지
 			
-			BWriteCommand comm = new BWriteCommand(); // BWriteCommand.java파일 
+			comm = new BWriteCommand(); // BWriteCommand.java파일 
 //			comm.writeExcute(request, response);
 			comm.excute(request, response);
 			
@@ -85,7 +87,7 @@ public class BFrontController extends HttpServlet {
 			
 			request.setCharacterEncoding("utf-8");//한글 깨짐 방지
 			
-			BListCommand comm = new BListCommand();
+			comm = new BListCommand();
 //			comm.listExcute(request, response);
 			comm.excute(request, response);
 			
@@ -97,7 +99,7 @@ public class BFrontController extends HttpServlet {
 			
 			request.setCharacterEncoding("utf-8");//한글 깨짐 방지
 			
-			BContentViewCommand comm = new BContentViewCommand();
+			comm = new BContentViewCommand();
 //			comm.viewExcute(request, response);
 			comm.excute(request, response);
 			
@@ -109,7 +111,7 @@ public class BFrontController extends HttpServlet {
 			
 			request.setCharacterEncoding("utf-8");//한글 깨짐 방지
 			
-			BModifyCommand comm = new BModifyCommand();
+			comm = new BModifyCommand();
 //			comm.modifyExcute(request, response);
 			comm.excute(request, response);
 			
@@ -122,7 +124,7 @@ public class BFrontController extends HttpServlet {
 			
 //			request.setCharacterEncoding("utf-8"); //한글 깨짐 방지
 			
-			BDeleteCommand comm = new BDeleteCommand();
+			comm = new BDeleteCommand();
 //			comm.deleteExcute(request, response);
 			comm.excute(request, response);
 			
