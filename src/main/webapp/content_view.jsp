@@ -39,7 +39,8 @@
 				<td colspan="2" align="center">
 					<input type="submit" value="글수정"> &nbsp;&nbsp;
 					<input type="button" value="글목록" onclick="location.href='list.do'"> &nbsp;&nbsp;
-					<a href="delete.d?bid=${contentView.bid }" >글삭제</a>
+					<%-- <a href="delete.do?bid=${contentView.bid }" >글삭제</a> --%>
+					<input type="button" value="글삭제" onclick="location.href='delete.do?bid='+${contentView.bid }"> &nbsp;&nbsp;
 				</td>		
 			</tr>
 		</form>

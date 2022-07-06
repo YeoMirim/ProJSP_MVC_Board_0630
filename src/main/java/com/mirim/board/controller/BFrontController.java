@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mirim.board.command.BContentViewCommand;
+import com.mirim.board.command.BDeleteCommand;
 import com.mirim.board.command.BListCommand;
 import com.mirim.board.command.BModifyCommand;
 import com.mirim.board.command.BWriteCommand;
@@ -18,7 +19,7 @@ import com.mirim.board.dao.BDao;
 /**
  * Servlet implementation class BFrontController
  */
-@WebServlet("*.do")		// .do로 끝나는 확장자 패턴을 모조리 긁어옴
+@WebServlet("*.do")		// .do로 끝나는 확장자 패턴을 모조리 긁어와서 요청에 맞게 분기시킴
 public class BFrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -63,7 +64,7 @@ public class BFrontController extends HttpServlet {
 		}
 		else if (command.equals("/write.do")) {
 			// 글쓰기 명령이 실행 
-/*
+/*			// command에서 작성할 내용
  			  String bname = request.getParameter("bname"); 
  			  String btitle = request.getParameter("btitle"); 
  			  String bcontent = request.getParameter("bcontent");
@@ -112,9 +113,20 @@ public class BFrontController extends HttpServlet {
 
 		}
 		
+		else if (command.equals("/delete.do")) {
+			// 글 삭제하기 명령이 실행
+			
+//			request.setCharacterEncoding("utf-8"); //한글 깨짐 방지
+			
+			BDeleteCommand comm = new BDeleteCommand();
+			comm.deleteExcute(request, response);
+			
+			view = "list.do"; // 지운 후 확인 차 list로 이동
+
+		}
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(view);	// RequestDispatcher는 하나로 계속 돌려씀
 		dispatcher.forward(request, response);
 	
 	}
-
 }

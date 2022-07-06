@@ -13,6 +13,6 @@ public class BWriteCommand {
 		String bcontent = request.getParameter("bcontent");
 		
 		BDao bdao = new BDao(); 
-		bdao.write(bname, btitle, bcontent);
+		bdao.write(bname, btitle, bcontent);	// 메소드에 필요한 인수들
 	}
 }

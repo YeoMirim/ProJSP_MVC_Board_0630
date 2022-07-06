@@ -89,8 +89,5 @@ public class BDto {				// 생성자는 DTO는 DB의 필드명과 같은 이름�
 		this.bdate = bdate;
 	}
 	
-	
-	
-	
-	
+
 }
