@@ -75,7 +75,8 @@ public class BFrontController extends HttpServlet {
 			request.setCharacterEncoding("utf-8"); // 한글 깨짐 방지
 			
 			BWriteCommand comm = new BWriteCommand(); // BWriteCommand.java파일 
-			comm.writeExcute(request, response);
+//			comm.writeExcute(request, response);
+			comm.excute(request, response);
 			
 			view = "list.do";
 		}
@@ -85,7 +86,8 @@ public class BFrontController extends HttpServlet {
 			request.setCharacterEncoding("utf-8");//한글 깨짐 방지
 			
 			BListCommand comm = new BListCommand();
-			comm.listExcute(request, response);
+//			comm.listExcute(request, response);
+			comm.excute(request, response);
 			
 			view = "list.jsp";
 //			response.sendRedirect(view); // 기존의 데이터가 셋팅된 request 객체를 사용하지 못함 
@@ -96,7 +98,8 @@ public class BFrontController extends HttpServlet {
 			request.setCharacterEncoding("utf-8");//한글 깨짐 방지
 			
 			BContentViewCommand comm = new BContentViewCommand();
-			comm.viewExcute(request, response);
+//			comm.viewExcute(request, response);
+			comm.excute(request, response);
 			
 			view = "content_view.jsp";
 
@@ -107,7 +110,8 @@ public class BFrontController extends HttpServlet {
 			request.setCharacterEncoding("utf-8");//한글 깨짐 방지
 			
 			BModifyCommand comm = new BModifyCommand();
-			comm.modifyExcute(request, response);
+//			comm.modifyExcute(request, response);
+			comm.excute(request, response);
 			
 			view = "list.do";
 
@@ -119,7 +123,8 @@ public class BFrontController extends HttpServlet {
 //			request.setCharacterEncoding("utf-8"); //한글 깨짐 방지
 			
 			BDeleteCommand comm = new BDeleteCommand();
-			comm.deleteExcute(request, response);
+//			comm.deleteExcute(request, response);
+			comm.excute(request, response);
 			
 			view = "list.do"; // 지운 후 확인 차 list로 이동
 
